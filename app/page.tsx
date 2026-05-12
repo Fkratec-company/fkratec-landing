@@ -35,7 +35,7 @@ import {
   Twitter,
   X,
 } from "lucide-react";
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import { siteCopy, type Lang, type SiteStrings } from "./site-copy";
 
 type ToastState = { message: string; type: "success" | "error" };
@@ -99,48 +99,40 @@ const clientComments: Record<Lang, string[]> = {
   ],
 };
 
-const BRAND = "ekratec";
-
-function FkratecLogoIcon({ className = "", withGlow = true }: { className?: string; withGlow?: boolean }) {
-  const id = useId().replace(/:/g, "");
-  const gradId = `fkratec-grad-${id}`;
-
-  return (
-    <svg
-      viewBox="0 0 78 64"
-      className={`${className} ${withGlow ? "fkratec-logo-glow" : ""}`}
-      aria-hidden
-    >
-      <defs>
-        <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#00ff9d" />
-          <stop offset="55%" stopColor="#00df9a" />
-          <stop offset="100%" stopColor="#00b8a9" />
-        </linearGradient>
-      </defs>
-      <rect x="27" y="0" width="48" height="20" rx="2.4" fill={`url(#${gradId})`} />
-      <rect x="0" y="23" width="25" height="20" rx="1.6" fill={`url(#${gradId})`} />
-      <path
-        fill={`url(#${gradId})`}
-        d="M25 43.5C28 32.5 42.5 28.8 76.5 34.8C69.6 48.8 52 56.9 25 55.9V43.5Z"
-      />
-      <path
-        fill={`url(#${gradId})`}
-        d="M0 64C2.2 51.9 12.7 44.7 29.5 43.7C25.5 48.1 23.3 53.7 22.2 64H0Z"
-      />
-    </svg>
-  );
-}
+const BRAND = "kratec";
 
 function FkratecBrand({ size = "nav", animateIntro = false }: { size?: "nav" | "hero" | "footer"; animateIntro?: boolean }) {
-  const iconClass =
-    size === "hero" ? "h-12 w-[4.6rem] sm:h-16 sm:w-[6rem]" : size === "footer" ? "h-9 w-[3.45rem]" : "h-9 w-[3.45rem] sm:h-10 sm:w-[3.8rem]";
+  const id = useId().replace(/:/g, "");
+  const gradId = `kratec-mark-${id}`;
+  const textControls = useAnimation();
+  const markClass = size === "hero" ? "h-12 w-[3.9rem] sm:h-[4.25rem] sm:w-[5.35rem]" : size === "footer" ? "h-11 w-[4.2rem]" : "h-10 w-[3.9rem]";
   const textClass =
     size === "hero"
-      ? "text-[1.65rem] font-bold tracking-[-0.04em] sm:text-4xl"
+      ? "text-[2.05rem] font-black tracking-[-0.075em] sm:text-[3.55rem]"
       : size === "footer"
-        ? "text-lg font-bold tracking-[-0.03em]"
-        : "text-lg font-bold tracking-[-0.03em] sm:text-xl";
+        ? "text-3xl font-black tracking-[-0.075em]"
+        : "text-2xl font-black tracking-[-0.075em] sm:text-[2rem]";
+  const travel = size === "hero" ? -96 : size === "footer" ? -72 : -64;
+
+  const hideWordmark = () => {
+    void textControls.start({
+      x: travel,
+      opacity: 0,
+      scale: 0.44,
+      filter: "blur(4px) drop-shadow(0 0 24px rgba(0,223,154,0.45))",
+      transition: { duration: 0.48, ease: [0.22, 1, 0.36, 1] },
+    });
+  };
+
+  const showWordmark = () => {
+    void textControls.start({
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      filter: "blur(0px) drop-shadow(0 0 0 rgba(0,223,154,0))",
+      transition: { type: "spring", stiffness: 260, damping: 22 },
+    });
+  };
 
   return (
     <motion.div
@@ -148,10 +140,41 @@ function FkratecBrand({ size = "nav", animateIntro = false }: { size?: "nav" | "
       animate={animateIntro ? { opacity: 1, y: 0 } : undefined}
       transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
       dir="ltr"
-      className="flex flex-row items-center gap-3"
+      className="inline-flex items-center gap-1.5 sm:gap-2"
+      onHoverStart={hideWordmark}
+      onHoverEnd={showWordmark}
     >
-      <FkratecLogoIcon className={`shrink-0 ${iconClass}`} />
-      <span className={`select-none text-white ${textClass}`}>{BRAND}</span>
+      <motion.svg
+        viewBox="0 0 96 76"
+        className={`${markClass} shrink-0 cursor-pointer overflow-visible fkratec-logo-glow`}
+        aria-label="Animate kratec logo mark"
+        role="img"
+        whileHover={{
+          rotate: [0, -2, 2, 0],
+          scale: 1.08,
+          filter: "drop-shadow(0 0 24px rgba(0,223,154,0.5))",
+        }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ duration: 0.35 }}
+      >
+        <defs>
+          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#00ff9d" />
+            <stop offset="55%" stopColor="#00df9a" />
+            <stop offset="100%" stopColor="#00b8a9" />
+          </linearGradient>
+        </defs>
+        <rect x="33" y="4" width="45" height="19" rx="2.4" fill={`url(#${gradId})`} />
+        <rect x="6" y="25" width="25" height="20" rx="2" fill={`url(#${gradId})`} />
+        <path fill={`url(#${gradId})`} d="M31 43.8C37.7 34 55.1 31.4 91 37.9C80.3 53.2 58.1 60.4 31 57.5V43.8Z" />
+        <path fill={`url(#${gradId})`} d="M0 72C4 56 16.1 45.8 36.6 43.8C30.1 51.7 27.2 61.1 26.6 72H0Z" />
+      </motion.svg>
+      <motion.span
+        animate={textControls}
+        className={`origin-left select-none leading-none text-white ${textClass}`}
+      >
+        {BRAND}
+      </motion.span>
     </motion.div>
   );
 }
@@ -282,17 +305,17 @@ function ServiceCard({
       animate={{ rotateX: tilt.y, rotateY: tilt.x }}
       transition={{ type: "spring", stiffness: 140, damping: 14 }}
       style={{ transformPerspective: 1100 }}
-      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur-[14px] [transform-style:preserve-3d]"
+      className="group relative flex min-h-[10.5rem] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur-[14px] [transform-style:preserve-3d]"
     >
       <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100 bg-[radial-gradient(520px_circle_at_30%_0%,rgba(45,212,191,0.2),transparent_50%)]" />
-      <div className="relative z-10">
+      <div className="relative z-10 flex w-full flex-col items-start text-start">
         <motion.div
           className="mb-4 inline-flex rounded-xl border border-teal-400/35 bg-teal-400/10 p-3 text-teal-200 shadow-[0_0_24px_rgba(45,212,191,0.25)] transition-transform duration-300 group-hover:scale-105"
         >
           <Icon className="h-6 w-6" />
         </motion.div>
         <h3 className="text-lg font-semibold text-white">{title}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-zinc-400">{text}</p>
+        <p className="mt-2 max-w-[18rem] text-sm leading-relaxed text-zinc-400">{text}</p>
       </div>
     </motion.article>
   );
@@ -363,11 +386,44 @@ function HeroPortal() {
 
         <div className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center px-4">
           <motion.div
-            animate={{ scale: [1, 1.02, 1] }}
-            transition={{ duration: 3.2, repeat: Infinity }}
-            className="rounded-3xl border border-white/10 bg-black/35 px-8 py-7 shadow-[0_0_50px_rgba(0,223,154,0.2),0_0_100px_rgba(0,184,169,0.12)] backdrop-blur-xl"
+            initial={{
+              width: "6rem",
+              height: "6rem",
+              borderRadius: 999,
+              opacity: 0,
+              scale: 0.76,
+              rotate: -10,
+              clipPath: "circle(48% at 50% 50%)",
+            }}
+            animate={{
+              width: ["6rem", "6rem", "25rem", "25rem", "25rem"],
+              height: ["6rem", "6rem", "8rem", "8rem", "8rem"],
+              borderRadius: ["999px", "999px", "28px", "28px", "28px"],
+              opacity: 1,
+              scale: [0.76, 1.08, 1, 1.02, 1],
+              rotate: [-10, 8, 0, 0],
+              clipPath: [
+                "circle(48% at 50% 50%)",
+                "circle(48% at 50% 50%)",
+                "circle(150% at 22% 50%)",
+                "circle(150% at 22% 50%)",
+                "circle(150% at 22% 50%)",
+              ],
+            }}
+            transition={{
+              duration: 3,
+              times: [0, 0.38, 0.72, 0.88, 1],
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="flex max-w-[86vw] items-center justify-center overflow-hidden border border-white/10 bg-black/35 px-5 py-5 shadow-[0_0_50px_rgba(0,223,154,0.2),0_0_100px_rgba(0,184,169,0.12)] backdrop-blur-xl sm:px-7 sm:py-6"
           >
-            <FkratecBrand size="hero" animateIntro />
+            <motion.div
+              initial={{ opacity: 0, x: -18 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 1.45, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <FkratecBrand size="hero" />
+            </motion.div>
           </motion.div>
         </div>
       </motion.div>
@@ -400,15 +456,15 @@ function HeroPortal() {
 function FloatingAnalytics({ labels }: { labels: SiteStrings["analytics"] }) {
   const card = "rounded-2xl border border-white/10 bg-white/[0.05] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-[16px]";
   return (
-    <div className="relative min-h-[420px]">
+    <div className="relative mx-auto min-h-[390px] w-full max-w-[34rem] overflow-hidden sm:min-h-[420px] lg:max-w-none lg:overflow-visible">
       <motion.div
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className={`absolute right-0 top-0 z-20 w-[46%] max-w-[200px] ${card}`}
+        className={`absolute right-3 top-2 z-20 w-[38%] min-w-[8rem] max-w-[10.5rem] sm:right-8 sm:top-0 sm:w-[34%] lg:-right-2 lg:-top-4 lg:w-[36%] ${card}`}
       >
         <p className="text-[10px] font-medium uppercase tracking-widest text-zinc-500">{labels.revenue}</p>
         <p className="mt-1 text-2xl font-bold text-teal-300">$48,840</p>
-        <div className="mt-3 flex h-12 items-end gap-1">
+        <div className="mt-3 flex h-10 items-end gap-1">
           {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
             <motion.div
               key={i}
@@ -426,7 +482,7 @@ function FloatingAnalytics({ labels }: { labels: SiteStrings["analytics"] }) {
       <motion.div
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className={`relative z-10 mx-auto mt-16 w-full max-w-md ${card}`}
+        className={`relative z-10 mx-auto mt-20 w-[92%] max-w-md sm:mt-16 ${card}`}
       >
         <div className="flex items-center justify-between">
           <p className="text-xs font-semibold uppercase tracking-widest text-teal-200/90">{labels.overview}</p>
@@ -457,7 +513,7 @@ function FloatingAnalytics({ labels }: { labels: SiteStrings["analytics"] }) {
       <motion.div
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-        className={`absolute bottom-0 left-0 z-20 w-[52%] max-w-[220px] ${card}`}
+        className={`absolute bottom-4 left-3 z-20 w-[50%] min-w-[10rem] max-w-[13rem] sm:left-6 lg:bottom-0 lg:left-0 lg:w-[52%] ${card}`}
       >
         <p className="text-[10px] font-medium uppercase tracking-widest text-zinc-500">{labels.growing}</p>
         <div className="mt-3 flex -space-x-2">
@@ -520,7 +576,13 @@ function CubeScene() {
       >
         <div className="absolute inset-0 rounded-2xl border border-white/20 bg-gradient-to-br from-teal-400/25 via-white/10 to-violet-500/25 shadow-[0_0_60px_rgba(45,212,191,0.35)] backdrop-blur-md [transform:translateZ(40px)]" />
         <div className="absolute inset-2 flex items-center justify-center rounded-xl bg-black/40">
-          <FkratecLogoIcon className="h-16 w-[4.5rem]" withGlow />
+          <motion.img
+            src="/ekratec-logo.svg"
+            alt={BRAND}
+            className="h-12 w-32 object-contain"
+            draggable={false}
+            whileHover={{ scale: 1.04, filter: "drop-shadow(0 0 18px rgba(0,223,154,0.42))" }}
+          />
         </div>
       </motion.div>
     </div>
@@ -669,7 +731,7 @@ export default function Page() {
       lang={lang}
       data-theme={theme}
       className={`theme-${theme} relative min-h-screen overflow-x-hidden transition-colors duration-700 ${
-        theme === "dark" ? "bg-[#020617] text-zinc-100" : "bg-[#f4f7fb] text-slate-950"
+        theme === "dark" ? "bg-[#020617] text-zinc-100" : "bg-[#f6f0e6] text-slate-950"
       }`}
     >
       <AnimatePresence>
@@ -686,20 +748,7 @@ export default function Page() {
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="relative flex items-center gap-4 rounded-[2rem] border border-white/10 bg-white/[0.04] px-8 py-6 shadow-[0_0_90px_rgba(0,223,154,0.28)] backdrop-blur-xl"
             >
-              <motion.div
-                animate={{ rotate: [0, 2, -2, 0], scale: [1, 1.04, 1] }}
-                transition={{ duration: 1.15, repeat: 1, ease: "easeInOut" }}
-              >
-                <FkratecLogoIcon className="h-12 w-16" />
-              </motion.div>
-              <motion.span
-                initial={{ clipPath: "inset(0 100% 0 0)" }}
-                animate={{ clipPath: "inset(0 0% 0 0)" }}
-                transition={{ duration: 0.8, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="text-3xl font-bold tracking-[-0.04em] text-white"
-              >
-                {BRAND}
-              </motion.span>
+              <FkratecBrand size="hero" animateIntro />
             </motion.div>
           </motion.div>
         )}
@@ -859,7 +908,7 @@ export default function Page() {
 
       {/* About */}
       <section id="about" className="relative mx-auto max-w-7xl px-5 py-20 lg:px-8">
-        <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-20">
           <SectionReveal>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#00df9a]/90">{t.about.kicker}</p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.5rem] lg:leading-tight">
@@ -948,16 +997,15 @@ export default function Page() {
         <SectionReveal>
           <h2 className="text-3xl font-bold text-white sm:text-4xl">{t.process.heading}</h2>
         </SectionReveal>
-        <div className="mt-14 overflow-x-auto pb-2">
-          <div className="flex min-w-[720px] items-start justify-between gap-2 lg:min-w-0">
+        <div className="mt-14 overflow-x-auto pb-3">
+          <div className="relative flex min-w-[720px] items-start justify-between gap-2 pt-8 lg:min-w-0">
+            <div className="absolute left-[8%] right-[8%] top-3 hidden h-px border-t border-dotted border-teal-300/25 lg:block" />
             {t.process.steps.map((step, i) => (
               <div key={`${step}-${i}`} className="relative flex flex-1 flex-col items-center">
-                {i < t.process.steps.length - 1 && (
-                  <div className="absolute left-[calc(50%+2.5rem)] top-7 hidden h-px w-[calc(100%-5rem)] border-t border-dotted border-zinc-600 lg:block" />
-                )}
+                <span className="absolute -top-[1.55rem] z-10 hidden h-3 w-3 rounded-full border border-teal-300/50 bg-[#020617] shadow-[0_0_18px_rgba(45,212,191,0.45)] lg:block" />
                 <div className="relative z-10 flex flex-col items-center text-center">
-                  <span className="text-4xl font-black text-zinc-800 sm:text-5xl">{String(i + 1).padStart(2, "0")}</span>
-                  <p className="-mt-2 text-sm font-semibold text-white">{step}</p>
+                  <span className="text-4xl font-black leading-none text-white/15 sm:text-5xl">{String(i + 1).padStart(2, "0")}</span>
+                  <p className="mt-1 text-sm font-semibold text-white">{step}</p>
                 </div>
               </div>
             ))}

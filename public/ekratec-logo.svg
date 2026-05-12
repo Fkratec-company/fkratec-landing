@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 232 52" fill="none" role="img" aria-label="ekratec">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 272 72" fill="none" role="img" aria-label="kratec">
   <defs>
     <linearGradient id="ekg" x1="0" y1="0" x2="1" y2="1">
       <stop stop-color="#00ff9d"/>
@@ -6,8 +6,9 @@
       <stop offset="1" stop-color="#00b8a9"/>
     </linearGradient>
   </defs>
-  <rect x="3" y="5" width="9" height="9" rx="2" fill="url(#ekg)"/>
-  <rect x="10" y="17" width="38" height="7.5" rx="3.75" fill="url(#ekg)"/>
-  <path d="M5 29.5C4.2 39.5 18 45.5 50 36.5c1.2-1.8-1-5-14-6-9.5-1-17.5-.5-18-1z" fill="url(#ekg)"/>
-  <text x="56" y="35" fill="#ffffff" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif" font-size="27" font-weight="700" letter-spacing="-0.03em">ekratec</text>
+  <rect x="34" y="2" width="44" height="19" rx="2.2" fill="url(#ekg)"/>
+  <rect x="7" y="23" width="24" height="20" rx="1.8" fill="url(#ekg)"/>
+  <path d="M31 42.2C36.8 32.6 53.5 29.5 89 35.8C78.7 51.4 58.2 58 31 55.9V42.2Z" fill="url(#ekg)"/>
+  <path d="M0 70C3.5 54 14.8 44 35.2 42.4C28.7 49.4 26.2 58.4 25.6 70H0Z" fill="url(#ekg)"/>
+  <text x="112" y="52" fill="#ffffff" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif" font-size="52" font-weight="800" letter-spacing="-0.055em">kratec</text>
 </svg>
