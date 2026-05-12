@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "rm -f .next/dev/lock && WATCHPACK_POLLING=1 next dev -H 127.0.0.1",
+    "dev:clean": "rm -f .next/dev/lock && WATCHPACK_POLLING=1 next dev -H 127.0.0.1",
+    "dev:port": "WATCHPACK_POLLING=1 next dev -H 127.0.0.1 -p 3050",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "framer-motion": "^12.35.2",
+    "lucide-react": "^0.577.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"
