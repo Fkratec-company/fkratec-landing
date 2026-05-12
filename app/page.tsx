@@ -731,7 +731,7 @@ export default function Page() {
       lang={lang}
       data-theme={theme}
       className={`theme-${theme} relative min-h-screen overflow-x-hidden transition-colors duration-700 ${
-        theme === "dark" ? "bg-[#020617] text-zinc-100" : "bg-[#f6f0e6] text-slate-950"
+        theme === "dark" ? "bg-[#020617] text-zinc-100" : "bg-[#f7f9fc] text-slate-950"
       }`}
     >
       <AnimatePresence>
@@ -999,13 +999,13 @@ export default function Page() {
         </SectionReveal>
         <div className="mt-14 overflow-x-auto pb-3">
           <div className="relative flex min-w-[720px] items-start justify-between gap-2 pt-8 lg:min-w-0">
-            <div className="absolute left-[8%] right-[8%] top-3 hidden h-px border-t border-dotted border-teal-300/25 lg:block" />
+            <div className="process-line absolute left-[8%] right-[8%] top-3 hidden h-px border-t border-dotted border-teal-300/25 lg:block" />
             {t.process.steps.map((step, i) => (
               <div key={`${step}-${i}`} className="relative flex flex-1 flex-col items-center">
-                <span className="absolute -top-[1.55rem] z-10 hidden h-3 w-3 rounded-full border border-teal-300/50 bg-[#020617] shadow-[0_0_18px_rgba(45,212,191,0.45)] lg:block" />
+                <span className="process-dot absolute -top-[1.55rem] z-10 hidden h-3 w-3 rounded-full border border-teal-300/50 bg-[#020617] shadow-[0_0_18px_rgba(45,212,191,0.45)] lg:block" />
                 <div className="relative z-10 flex flex-col items-center text-center">
-                  <span className="text-4xl font-black leading-none text-white/15 sm:text-5xl">{String(i + 1).padStart(2, "0")}</span>
-                  <p className="mt-1 text-sm font-semibold text-white">{step}</p>
+                  <span className="process-number text-4xl font-black leading-none text-white/15 sm:text-5xl">{String(i + 1).padStart(2, "0")}</span>
+                  <p className="process-label mt-1 text-sm font-semibold text-white">{step}</p>
                 </div>
               </div>
             ))}

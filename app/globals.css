@@ -34,10 +34,10 @@ html {
 
 html.light body {
   background:
-    radial-gradient(circle at 15% 12%, rgba(20, 184, 166, 0.16), transparent 28%),
-    radial-gradient(circle at 88% 8%, rgba(251, 191, 36, 0.12), transparent 26%),
-    radial-gradient(circle at 58% 82%, rgba(15, 23, 42, 0.06), transparent 34%),
-    linear-gradient(135deg, #fffaf0 0%, #f6f0e6 48%, #edf7f2 100%);
+    radial-gradient(circle at 15% 12%, rgba(20, 184, 166, 0.12), transparent 28%),
+    radial-gradient(circle at 86% 10%, rgba(59, 130, 246, 0.08), transparent 28%),
+    radial-gradient(circle at 50% 88%, rgba(15, 23, 42, 0.055), transparent 36%),
+    linear-gradient(135deg, #fbfcff 0%, #f5f8fb 48%, #eef4f7 100%);
   color: #0f172a;
 }
 
@@ -56,7 +56,7 @@ html.light body {
 .theme-light .text-zinc-400,
 .theme-light .text-zinc-500,
 .theme-light .text-zinc-600 {
-  color: #526071 !important;
+  color: #334155 !important;
 }
 
 .theme-light .bg-black\/40,
@@ -68,8 +68,8 @@ html.light body {
 .theme-light .bg-white\/\[0\.04\],
 .theme-light .bg-white\/\[0\.05\],
 .theme-light .bg-white\/\[0\.06\] {
-  background-color: rgba(255, 252, 246, 0.84) !important;
-  box-shadow: 0 22px 70px rgba(15, 23, 42, 0.1) !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 22px 70px rgba(15, 23, 42, 0.12) !important;
 }
 
 .theme-light .border-white\/5,
@@ -91,14 +91,14 @@ html.light body {
 }
 
 .theme-light footer {
-  background: rgba(255, 250, 240, 0.82) !important;
+  background: rgba(255, 255, 255, 0.86) !important;
 }
 
 .theme-light .ambient-gradient {
   background:
-    radial-gradient(ellipse 54% 34% at 18% 9%, rgba(20, 184, 166, 0.17), transparent 64%),
-    radial-gradient(ellipse 42% 28% at 86% 8%, rgba(245, 158, 11, 0.12), transparent 62%),
-    radial-gradient(ellipse 62% 36% at 54% 72%, rgba(15, 23, 42, 0.05), transparent 70%) !important;
+    radial-gradient(ellipse 54% 34% at 18% 9%, rgba(20, 184, 166, 0.13), transparent 64%),
+    radial-gradient(ellipse 42% 28% at 86% 8%, rgba(59, 130, 246, 0.08), transparent 62%),
+    radial-gradient(ellipse 62% 36% at 54% 72%, rgba(15, 23, 42, 0.045), transparent 70%) !important;
 }
 
 .theme-light .ambient-grid {
@@ -106,25 +106,57 @@ html.light body {
     linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px) !important;
   background-size: 72px 72px !important;
-  opacity: 0.18 !important;
+  opacity: 0.12 !important;
   mask-image: linear-gradient(to bottom, transparent, black 16%, black 78%, transparent);
 }
 
 .theme-light .wave-fade {
   background:
-    linear-gradient(to top, rgba(246, 240, 230, 0.96), rgba(255, 250, 240, 0.62), transparent),
-    radial-gradient(ellipse 80% 55% at 50% 100%, rgba(20, 184, 166, 0.12), transparent 62%) !important;
+    linear-gradient(to top, rgba(247, 249, 252, 0.98), rgba(251, 252, 255, 0.7), transparent),
+    radial-gradient(ellipse 80% 55% at 50% 100%, rgba(20, 184, 166, 0.08), transparent 62%) !important;
 }
 
 .theme-light .wave-glow {
   background:
-    radial-gradient(ellipse 90% 55% at 50% 100%, rgba(20, 184, 166, 0.13), transparent 58%),
-    radial-gradient(ellipse 55% 42% at 18% 88%, rgba(245, 158, 11, 0.08), transparent 66%) !important;
+    radial-gradient(ellipse 90% 55% at 50% 100%, rgba(20, 184, 166, 0.09), transparent 58%),
+    radial-gradient(ellipse 55% 42% at 18% 88%, rgba(59, 130, 246, 0.055), transparent 66%) !important;
 }
 
 .theme-light .wave-lines {
-  opacity: 0.26;
+  opacity: 0.18;
   filter: saturate(0.9);
+}
+
+.theme-light .text-white\/15 {
+  color: rgba(15, 23, 42, 0.2) !important;
+}
+
+.theme-light .border-teal-300\/25 {
+  border-color: rgba(15, 23, 42, 0.22) !important;
+}
+
+.theme-light .bg-\[\#020617\] {
+  background-color: #ffffff !important;
+}
+
+.theme-light .process-line {
+  border-color: rgba(15, 23, 42, 0.32) !important;
+}
+
+.theme-light .process-dot {
+  background: #14b8a6 !important;
+  border-color: rgba(15, 23, 42, 0.18) !important;
+  box-shadow: 0 0 0 5px rgba(20, 184, 166, 0.12), 0 8px 22px rgba(15, 23, 42, 0.12) !important;
+}
+
+.theme-light .process-number {
+  color: rgba(15, 23, 42, 0.72) !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.theme-light .process-label {
+  color: #0f172a !important;
+  font-weight: 800;
 }
 
 .theme-light .fkratec-logo-glow {
